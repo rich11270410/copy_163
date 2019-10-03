@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="/css/reset.css">
+    <title>wxyx_163</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+  <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+  <script>
+    //解决点击响应延时0.3s问题
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function () {
+        FastClick.attach(document.body);
+      }, false);
+    }
+
+    // rem适配
+    !(function () {
+      let width = document.documentElement.clientWidth;
+      const styleNode = document.createElement('style');
+      styleNode.innerHTML = 'html{font-size: ' + width / 10 + 'px !important;}';
+      document.head.appendChild(styleNode);
+    })();
+
+    //1.取消浏览器默认行为(点透处理)
+    document.addEventListener('touchstart', function (event) {
+      event.preventDefault(); 
+    },false);
+    //2.给页面中所有a指定新的跳转地址
+    !(function () {
+      let aNodes = document.querySelectorAll('a');
+      for (let i = 0; i < aNodes.length; i++) { 
+        aNodes[i].addEventListener('touchstart', function () {
+          window.location.href = this.href; 
+        })
+      } 
+    })();
+  </script>
+</html>
