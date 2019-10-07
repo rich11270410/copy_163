@@ -32,12 +32,11 @@
       goto (path) {
         //如果当前请求路由不是path路径
         if (this.$route.path !== path) {
-          //跳转
           this.$router.replace(path)
-        } else {  //如果请求的是当前的，直接强制刷新
-          window.location.reload()      
+        } else {//如果请求的是当前的，直接强制厦巡
+          window.location.reload()
         }
-    }
+      }
     }
   }
 </script>
@@ -49,13 +48,15 @@
     position fixed
     width 100%
     height 98px
-    z-index 99
+    z-index 5
     left 0
     bottom 0
+    background #fff
     .footerNav
       width 100%
       height 100%
       display flex
+      flex-flow row nowrap
       align-items center
       .item
         display flex
@@ -103,6 +104,7 @@
           background-position 0 -400px
           
         span
+          display block
           font-size 24px
           margin-top 7px
 </style>
