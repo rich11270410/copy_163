@@ -1,5 +1,5 @@
 <template>
-    <section class="manu-container">
+    <div class="manu-container">
       <div class="manu-header">
         <span class="left">品牌制造商直供</span>
         <div class="right">
@@ -8,11 +8,16 @@
         </div>
       </div>
       <ul class="manu-list">
-        <li>
-          <span>海外制造商</span>
-          <span>9.9元起</span>
+        <li v-for="(tag, index) in home.tagList" :key="index">
+          <img :src="tag.picUrl" />
+          <div class="list-top">
+            <span>{{tag.name}}</span>
+            <div>
+              <span>{{tag.floorPrice}}元起</span>
+            </div>
+          </div>
         </li>
-        <li>
+        <!-- <li>
           <span>CK制造商</span>
           <span>32.9元起</span>
         </li>
@@ -23,13 +28,19 @@
         <li>
           <span>新秀丽制造商</span>
           <span>34.9元起</span>
-        </li>
+        </li> -->
       </ul>
-    </section>
+    </div>
 </template>
 <script>
+  import {mapState} from 'vuex'
   export default {
-    name: 'Manufacturers'
+    name: 'Manufacturers',
+     computed: {
+      ...mapState({
+        home: state => state.home.homeData
+      })    
+    }
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>
@@ -58,43 +69,32 @@
       display flex
       flex-wrap wrap
       li
+        position relative
         display flex
         flex-direction column
         align-items center
         width 343px
         height 260px
-        background-repeat no-repeat
-        background-size 100% 100%
-        &:nth-of-type(1)
-          margin 0 5px 5px 0
-          background-image url("http://yanxuan.nosdn.127.net/74e2ea8f81004d0a60f90fc8e4649058.png")
-        &:nth-of-type(2)
-          margin-bottom 5px
-          background-image url("http://yanxuan.nosdn.127.net/c097be14110f769d58245cdad73e15c3.png")
-        &:nth-of-type(3)
-          margin 0 5px 5px 0
-          background-image url("http://yanxuan.nosdn.127.net/3bf5a8a2f6eef284ecb40806ae9ce043.png")
-        &:nth-of-type(4)
-          margin-bottom 5px
-          background-image url("http://yanxuan.nosdn.127.net/66a23d776f41cba70d00803a5231124b.png")
-        span
+        margin 2px
+        img 
           width 100%
+          height 100%
+        .list-top
+          position absolute
+          top 0
           text-align center
-          &:nth-of-type(1)
-            padding-top 23px
-            display flex
-            justify-content center
-            text-overflow ellipsis
-            white-space nowrap
-            overflow hidden
-            color #333
+          margin-top 24px
+          span 
             font-family PingFangSC-Medium
             font-size 28px
-            line-height 34px
-            margin-bottom 3px
-          &:nth-of-type(2)
-            font-size 24px
-            color #777
+            color #333
+          div
+            span 
+              margin top 3px
+              color #7F7F7F
+              font-size: 26px
+
+
 
 
 </style>

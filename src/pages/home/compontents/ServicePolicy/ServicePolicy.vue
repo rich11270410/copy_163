@@ -1,13 +1,14 @@
 <template>
   <div class="servicePolicyContainer">
     <ul class="servicePolicyList">
-      <li class="item">
-        <a href="javascript:void(0);">
-          <i class="u-icon u-icon-servicePolicy-index"></i>
-          <span class="text">网易自营品牌</span>
+      <li class="item"  v-for="(descList, index) in home.policyDescList" :key="index">
+        <a href="javascript:void(0);" >
+          <!-- <i class="u-icon u-icon-servicePolicy-index"></i> -->
+          <!-- <i>{{home.policyDescList[0].desc}}</i> -->
+          <span class="text">{{descList.desc}}</span>
         </a>
       </li>
-      <li class="item">
+      <!-- <li class="item">
         <a href="javascript:void(0);">
           <i class="u-icon icon-tuihuobaozhang iconfont"></i>
           <span class="text">30天无忧退货</span>
@@ -18,14 +19,20 @@
           <i class="u-icon icon-tuikuan iconfont"></i>
           <span class="text">48小时快速退款</span>
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapState} from 'vuex'
   export default {
-    name: 'ServicePoicy'
+    name: 'ServicePoicy',
+     computed: {
+      ...mapState({
+        home: state => state.home.homeData
+      })    
+    },
   }
 </script>
 

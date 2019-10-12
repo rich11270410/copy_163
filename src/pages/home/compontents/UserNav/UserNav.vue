@@ -1,74 +1,26 @@
 <template>
   <div class="userNavCantainer">
-    <ul class="userNavList">
-      <li>
+    <ul class="userNavList" v-if="home.kingKongModule">
+      <li v-for="(navList,index) in home.kingKongModule.kingKongList" :key="index">
         <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
+          <img :src="navList.picUrl" alt="新品首发">
+          <span class="text">{{navList.text}}</span>
         </a>
       </li>
-      <li>
-        <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">
-          <img src="https://yanxuan.nosdn.127.net/fede8b110c502ec5799702d5ec824792.png" alt="新品首发">
-          <span class="text">居家生活</span>
-        </a>
-      </li>
-
+  
     </ul>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapState} from 'vuex'
   export default {
-    name: 'UserNav'
+    name: 'UserNav',
+     computed: {
+      ...mapState({
+        home: state => state.home.homeData
+      })    
+    },
   }
 </script>
 

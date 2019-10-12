@@ -15,7 +15,7 @@
   import Swiper from 'swiper'
 
   export default {
-    name: 'Swiper',
+    name: 'Swiper1',
     data() {
       return {
         imgNodes: [

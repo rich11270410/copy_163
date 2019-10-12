@@ -11,22 +11,22 @@
     <div class="shopContent">
       <ul>
         <li class="item">
-          <i class="iconfont icon-yuanquan"></i>
+          <i class="iconfont icon-yuan"></i>
           <span>30天无忧退货</span>
         </li>
         <li class="item">
-          <i class="iconfont icon-yuanquan"></i>
+          <i class="iconfont icon-yuan"></i>
           <span>48小时快速退款</span>
         </li>
         <li class="item">
-          <i class="iconfont icon-yuanquan"></i>
+          <i class="iconfont icon-yuan"></i>
           <span>满88元免邮费</span>
         </li>
       </ul>
       <div class="login">
         <img src="http://yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/noCart-a8fe3f12e5.png" />
         <span>去添加点什么吧</span>
-        <button>登录</button>
+        <button  @click="$router.push('/profile')">登录</button>
       </div>
 
     </div>
@@ -44,6 +44,7 @@
   #shopContainer
     width 100%
     .shopHeader
+      position fixed
       display flex
       align-items center
       width 100%
@@ -85,10 +86,8 @@
           font-size 24px
           color #666
           i
-            width 10px
-            height 10px
-            font-size 10px
-            margin-right 10px 
+            font-size 26px
+            color #666
       .login 
         position absolute
         left 50%
@@ -107,5 +106,6 @@
           color #fff
           background-color $red
           border-radius 3px
+          outline none
 
 </style>

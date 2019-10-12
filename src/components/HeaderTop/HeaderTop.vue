@@ -7,38 +7,17 @@
        <i class="iconfont icon-search"></i>
        <span class="placeholder">搜索商品，共23084件好物</span>
       </div>
-      <div class="loginBtn">登录</div>
+      <div class="loginBtn" @click="$router.push('/profile')">登录</div>
     </div>
     <!-- nav -->
     <div class="headerNav"> 
       <div class="headerNav-left">
-        <ul class="headerNav-list" @click="addActive($event)">
-          <li>
-            <a href="javascript:void(0);" :class="{active: cuttentA===0}">推荐</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">居家生活</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">服饰鞋包</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">美食酒水</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">个护清洁</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">母婴亲子</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">运动旅行</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">数码家电</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);">全球特色</a>
+        <ul class="headerNav-list" v-if="home.kingKongModule">
+          <li v-for="(nav,index) in home.kingKongModule.kingKongList" :key="index" 
+          @click="currIndex(index)" :class="{active: home.kingKongModule.kingKongList[currentA] === nav}"
+          >
+
+            <a href="javascript:void(0);">{{nav.text}}</a>
           </li>
         </ul>
       </div>
@@ -51,16 +30,10 @@
          <!-- isOpen -->
       <div class="navWrapper" v-show="isOpen">
         <p>全部频道</p>
-        <ul class="navList">
-          <li><a href="javascript:void(0);">推荐</a></li>
-          <li><a href="javascript:void(0);">居家生活</a></li>
-          <li><a href="javascript:void(0);">服饰鞋包</a></li>
-          <li><a href="javascript:void(0);">美食酒水</a></li>
-          <li><a href="javascript:void(0);">个户清洁</a></li>
-          <li><a href="javascript:void(0);">母婴亲子</a></li>
-          <li><a href="javascript:void(0);">运动旅行</a></li>
-          <li><a href="javascript:void(0);">数码家电</a></li>
-          <li><a href="javascript:void(0);">全球特色</a></li>
+        <ul class="navList" v-if="home.kingKongModule">
+          <li v-for="(nav,index) in home.kingKongModule.kingKongList" :key="index"
+          @click="currIndex(index)" :class="{active: home.kingKongModule.kingKongList[currentA] === nav}"
+          ><a href="javascript:void(0);">{{nav.text}}</a></li>
         </ul>
       </div>
     </div>
@@ -68,30 +41,40 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapState} from 'vuex'
   import BScroll from 'better-scroll'
+
   export default {
     name: 'HeaderTop',
     data() {
       return {
         isOpen: false,
-        cuttentA: 0
+        currentA: 0
       }
+      },
+
+    computed: {
+      ...mapState({
+        home: state => state.home.homeData
+        
+      })
+      
     },
-    mounted() {
+
+    async mounted() {
+      await this.$store.dispatch('getHomeData')
       this.$nextTick(() => {
         new BScroll('.headerNav-left', {
           click: true,
           scrollX: true
         })
       })
-    },
-    methods: {
-      addActive (event) {
-        // console.log(event)
-        this.cuttentA = +event.target.dataset.thisIndex
-
-      }
     }
+    ,methods: {
+      currIndex(index) {
+        this.currentA = index
+      }
+    },
   }
 </script>
 
@@ -180,11 +163,11 @@
               font-size 28px
               color #333
               text-align center
-            a.active
-              box-sizing border-box
-              min-width 90px
-              color $red
-              border-bottom 4px solid $red
+          li.active
+            box-sizing border-box
+            min-width 90px
+            color $red
+            border-bottom 4px solid $red
       .headerNav-right  
         position absolute
         z-index 2
@@ -242,7 +225,16 @@
             background #FAFAFA
             border 1px solid #CCC
             border-radius 4px
+          >li.active  
+            border 1px solid $red
+            color $red
             >a 
               color #333
               font-size 24px
-</style>
+    .mask
+      width 100%
+      height 100%
+      position absolute
+      z-index 12
+      background rgba(0, 0, 0, .5)
+    </style>

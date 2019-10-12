@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app">
     <HeaderTop v-show="$route.meta.showHeader"></HeaderTop>
     <router-view />
     <FooterGuide v-show="$route.meta.showFooter"></FooterGuide>
@@ -19,7 +19,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  div
+  .app
     font-size 30px
- 
+    height 100%
+    
 </style>

@@ -1,33 +1,39 @@
 <template>
-  <section id="freshManContainer">
+  <div id="freshManContainer">
     <p class="name">- 新人专享礼 -</p>
     <div class="freshManWrapper">
       <div class="freshManLeft">
         <span class="giftName">新人专享礼包</span>
         <img src="http://yanxuan.nosdn.127.net/ba4d635ec94ad95b28bfab6500900659.png" alt="新人专享礼包">
       </div>
-      <div class="freshManRight">
+      <div class="freshManRight" v-if="home.indexActivityModule">
         <div class="freshManRight-top">
           <div class="title">
-            <p>福利社</p>
-            <span>今日特价</span>
+            <p>{{home.indexActivityModule[0].title}}</p>
+            <span>{{home.indexActivityModule[0].subTitle}}</span>
           </div>
-          <img src="https://yanxuan-item.nosdn.127.net/9032e04ee24f14607f2a8b5635ebcd95.png?imageView&thumbnail=200x200&quality=75" alt="福利社">
+          <img :src="home.indexActivityModule[0].picUrl" alt="福利社">
         </div>
         <div class="freshManRight-bottom">
           <div class="title">
             <p>新人拼团</p>
-            <span>1元起包邮</span>
+            <span>{{home.indexActivityModule[1].tag}}</span>
           </div>
-          <img src="http://yanxuan.nosdn.127.net/f608f7868d43c5ac67fc03189b07c589.png" alt="新人拼团">
+          <img :src="home.indexActivityModule[1].picUrl" alt="新人拼团">
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 <script>
+   import {mapState} from 'vuex'
   export default {
-    name: 'FreshMan'
+    name: 'FreshmanGift',
+     computed: {
+      ...mapState({
+        home: state => state.home.homeData
+      })    
+    },
   }
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>

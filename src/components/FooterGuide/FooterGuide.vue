@@ -6,15 +6,15 @@
         <span>首页</span>
       </li>
       <li class="item" :class="{active: $route.path === '/category'}" @click="goto('/category')">
-        <i class="u-icon" :class="$route.path === '/category' ? 'u-icon-tabBar-cate-active' : 'u-icon-tabBar-cate'"></i>
+        <i class="u-icon" :class="$route.path.includes('/category')? 'u-icon-tabBar-cate-active' : 'u-icon-tabBar-cate'"></i>
         <span>分类</span>
       </li>
       <li class="item" :class="{active: $route.path === '/topic'}" @click="goto('/topic')">
-        <i class="u-icon" :class="$route.path === '/topic' ? 'u-icon-tabBar-topic-active' : 'u-icon-tabBar-topic'"></i>
+        <i class="u-icon" :class="$route.path.includes('/topic') ? 'u-icon-tabBar-topic-active' : 'u-icon-tabBar-topic'"></i>
         <span>识物</span>
       </li>
-      <li class="item" :class="{active: $route.path === '/shopCart'}" @click="goto('/shopCart')">
-        <i class="u-icon" :class="$route.path === '/shopCart' ? 'u-icon-tabBar-cart-active' : 'u-icon-tabBar-cart'"></i>
+      <li class="item" :class="{active: $route.path === '/shopcart'}" @click="goto('/shopcart')">
+        <i class="u-icon" :class="$route.path === '/shopcart' ? 'u-icon-tabBar-cart-active' : 'u-icon-tabBar-cart'"></i>
         <span>购物车</span>
       </li>
       <li class="item" :class="{active: $route.path === '/profile'}" @click="goto('/profile')">
@@ -33,7 +33,7 @@
         //如果当前请求路由不是path路径
         if (this.$route.path !== path) {
           this.$router.replace(path)
-        } else {//如果请求的是当前的，直接强制厦巡
+        } else {//如果请求的是当前的，直接强制刷新
           window.location.reload()
         }
       }

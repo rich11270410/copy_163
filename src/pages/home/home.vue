@@ -1,24 +1,24 @@
 <template>
-  <div>
-    <Swiper></Swiper>
-    <ServicePolicy></ServicePolicy>
-    <UserNav></UserNav>
-    <Split></Split>
-    <FreshmanGift></FreshmanGift>
-    <Split></Split>
-    <Manufacturers></Manufacturers>
+  <div class="homeCatainer">
+      <Swiper1></Swiper1>
+      <ServicePolicy></ServicePolicy>
+      <UserNav></UserNav>
+      <Split></Split>
+      <FreshmanGift></FreshmanGift>
+      <Split></Split>
+      <Manufacturers></Manufacturers>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import Swiper from './compontents/Swiper/Swiper'
+  import Swiper1 from './compontents/Swiper/Swiper'
   import ServicePolicy from './compontents/ServicePolicy/ServicePolicy'
   import UserNav from './compontents/UserNav/UserNav'
   import FreshmanGift from './compontents/FreshmanGift/FreshmanGift'
   import Manufacturers from './compontents/Manufacturers/Manufacturers'
   export default {
     components: {
-      Swiper,
+      Swiper1,
       ServicePolicy,
       UserNav,
       FreshmanGift,

@@ -9,21 +9,27 @@
     <div class="categoryContent">
       <div class="left-nav">
         <ul class="navList">
-          <li><a class="active">推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
-          <li><a>推荐专区</a></li>
+          <li v-for="(item, index) in cate.categoryL1List" :key="index"
+          @click="currentActive(index)"
+          :class="{active: cate.categoryL1List[currentIndex]===item}"
+          >
+          {{item.name}}
+          </li>
+          <!-- <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li>
+          <li><a href="javascript:void(0);">推荐专区</a></li> -->
         </ul>
-      </div>
-      <div class="right-group">
+      </div> 
+      <div class="right-group" >
+       <div class="list">
           <div class="swiper-container">
             <div class="swiper-wrapper">
               <div class="swiper-slide">
@@ -33,83 +39,81 @@
                 <img src="https://yanxuan.nosdn.127.net/01467535cd09249bd5cf0ae110845892.jpg?imageView&quality=75&thumbnail=0x196" />
               </div>
             <!-- 如果需要分页器 -->
+            </div>
             <div class="swiper-pagination"></div>
-          </div>
+
         </div>
-        <ul class="rightList">
-          <li>
+        <ul class="rightList" v-if="cate.categoryL1List">
+          <li v-for="(list, index) in cate.categoryL1List[currentIndex].subCateList" :key="index">
             <div class="cate">
-              <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&quality=85&thumbnail=144x144" />
-              <span>明星商品</span>
+              <img v-lazy="list.bannerUrl" />
+              <span>{{list.name}}</span>
             </div>
           </li>
-          <li>
-            <div class="cate">
-              <img src="https://yanxuan.nosdn.127.net/020bc5a3cd3b57aff975fc2e5ee8f29a.png?imageView&quality=85&thumbnail=144x144" />
-              <span>十一出游用品低至12.9</span>
-            </div>
-          </li>
-          <li>
-            <div class="cate">
-              <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&quality=85&thumbnail=144x144" />
-              <span>明星商品</span>
-            </div>
-          </li>
-          <li>
-            <div class="cate">
-              <img src="https://yanxuan.nosdn.127.net/020bc5a3cd3b57aff975fc2e5ee8f29a.png?imageView&quality=85&thumbnail=144x144" />
-              <span>十一出游用品低至12.9</span>
-            </div>
-          </li>
-          <li>
-            <div class="cate">
-              <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&quality=85&thumbnail=144x144" />
-              <span>明星商品</span>
-            </div>
-          </li>
-          <li>
-            <div class="cate">
-              <img src="https://yanxuan.nosdn.127.net/020bc5a3cd3b57aff975fc2e5ee8f29a.png?imageView&quality=85&thumbnail=144x144" />
-              <span>十一出游用品低至12.9</span>
-            </div>
-          </li>
-          <li>
-            <div class="cate">
-              <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&quality=85&thumbnail=144x144" />
-              <span>明星商品</span>
-            </div>
-          </li>
-          <li>
-            <div class="cate">
-              <img src="https://yanxuan.nosdn.127.net/020bc5a3cd3b57aff975fc2e5ee8f29a.png?imageView&quality=85&thumbnail=144x144" />
-              <span>十一出游用品低至12.9</span>
-            </div>
-          </li>
-   
         </ul>
+       </div>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
- import Swiper from 'swiper'
+  import {mapState} from 'vuex'
+  import BScroll from 'better-scroll'
+  import 'swiper/css/swiper.min.css'
+  import Swiper from 'swiper'
+
   export default {
     name: 'Category',
-    mounted() {
-      new Swiper ('.swiper-container', {
-        autoplay: true,    //可选选项，自动滑动
-        loop: true, // 循环模式选项
-            // 如果需要分页器
-        pagination: {
-          el: '.swiper-pagination',
-        }
+    data() {
+      return {
+        currentIndex: 0 
+      }
+    },
+
+    computed: {
+      ...mapState({
+        cate: state => state.category.cate
       })
     },
+
+    async mounted() {
+      await this.$store.dispatch('getCategory')
+
+      this.$nextTick(() => {
+        new BScroll('.left-nav', {
+          click: true,
+          scrollY: true
+        })
+
+
+         new BScroll('.right-group', {
+          click: true,
+          scrollY: true
+        })
+
+        console.log('1')
+          //debugger;
+        new Swiper ('.swiper-container', {
+          autoplay: true,    //可选选项，自动滑动
+          loop: true, // 循环模式选项
+              // 如果需要分页器
+          pagination: {
+            el: '.swiper-pagination',
+          }
+      })
+      })
+    },
+
+    methods: {
+      currentActive(index) {
+        this.currentIndex = index
+      }
+    },  
   }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" >
   @import "../../common/stylus/mixins.styl"
   .categoryContainer
     width 100%
@@ -164,48 +168,50 @@
             margin-top 40px
             &:nth-of-type(1)
               margin-top 0  
-            a
-              display block
-              white-space nowrap
-              font-size 28px
-              line-height 50px
-              text-overflow ellipsis
-              overflow hidden
-              color #333333
-            a.active
-              color $red
-              border-left 6px solid $red
+          li.active
+            color $red
+            border-left 6px solid $red
       .right-group    
-        padding 30px 30px 10px
-        overflow hidden
+        padding 0px 30px 10px
+        box-sizing border-box
+        // overflow hidden
+        width 590px
         position relative
-        .swiper-container
-          width 100%
-          .swiper-slide
+
+        .list
+          padding-top 30px
+          box-sizing border-box
+          .swiper-container
             width 100%
-            height 100%
-            img
-              display block
-              width 528px
-              height 192px
-        .rightList
-          margin-top 20px
-          display flex
-          flex-wrap wrap
-          >li
-            width 144px
-            height 216px
-            margin-right 32px
-            .cate
-              >img
-                display block
+            height 192px
+            // overflow hidden
+            .swiper-wrapper
+              width 100%
+              height 100%
+              .swiper-slide
                 width 100%
                 height 100%
-              >span 
-                display block
-                text-align center
-                height 72px
-                line-height 36px
-                font-size 24px
-                color #333
+                img
+                  height 100%
+                  width 100%
+          .rightList
+            margin-top 20px
+            display flex
+            flex-wrap wrap
+            >li
+              width 144px
+              height 216px
+              margin-right 32px
+              .cate
+                >img
+                  display block
+                  width 100%
+                  height 100%
+                >span 
+                  display block
+                  text-align center
+                  height 72px
+                  line-height 36px
+                  font-size 24px
+                  color #333
 </style>
